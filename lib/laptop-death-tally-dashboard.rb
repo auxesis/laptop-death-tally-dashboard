@@ -77,6 +77,9 @@ __END__
                         margin: 20px 0 8px; }
         img#logo      { display: block;
                         margin: 0 auto 36px; }
+        div#footer    { margin-top: 16px;
+                        font-size: 10px;  }
+        a             { text-decoration: none; }
 
   %body
     %div#container
@@ -86,3 +89,6 @@ __END__
         Death toll: #{@counter.count}
       %form{:action => "/death", :method => "post"}
         %input{:type => "submit", :value => "I got bit!", :class => "submit"}
+      %div#footer
+        %a{:href => "https://github.com/auxesis/laptop-death-tally-dashboard"}
+          Fork me on GitHub
