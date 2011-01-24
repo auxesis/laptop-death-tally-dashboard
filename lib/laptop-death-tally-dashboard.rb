@@ -45,7 +45,7 @@ __END__
 !!! Strict
 %html
   %head
-    %title linux.conf.au 2011 Laptop Death Tally Dashboard
+    %title linux.conf.au 2011 Laptop Death Dive Tally Dashboard
     %style{:type => "text/css"}
       :plain
         *    { margin: 0; padding: 0; }
@@ -81,7 +81,7 @@ __END__
   %body
     %div#container
       %img{:src => "http://linux.org.au/files/lca2011.png", :id => "logo"}
-      %h1 Laptop Death Tally Dashboard
+      %h1 Laptop Death Dive Tally Dashboard
       %div.count
         Death toll: #{@counter.count}
       %form{:action => "/death", :method => "post"}
