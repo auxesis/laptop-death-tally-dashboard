@@ -2,21 +2,39 @@
 
 require 'sinatra'
 require 'haml'
+require 'dm-core'
+require 'dm-migrations'
+
+class Counter
+  include DataMapper::Resource
+
+  property :id,    Serial
+  property :count, Integer, :default => 0
+end
 
 class LaptopDeathTallyDashboard < Sinatra::Base
 
   enable :inline_templates
 
   configure do
+    DataMapper.setup(:default, ENV['DATABASE_URL'])
+    DataMapper.auto_upgrade!
   end
 
   get '/' do
-    @counter ||= 0
+    @counter = ::Counter.get(1)
+    if not @counter
+      @counter = ::Counter.new
+      @counter.save
+      p @counter
+    end
     haml :index
   end
 
   post '/death' do
-    # increment counter
+    @counter = ::Counter.get(1)
+    @counter.count += 1
+    @counter.save
     redirect '/'
   end
 
@@ -57,11 +75,14 @@ __END__
         div.count     { text-align: center;
                         font-size: 24px;
                         margin: 20px 0 8px; }
+        img#logo      { display: block;
+                        margin: 0 auto 36px; }
 
   %body
     %div#container
+      %img{:src => "http://linux.org.au/files/lca2011.png", :id => "logo"}
       %h1 Laptop Death Tally Dashboard
       %div.count
-        Death toll: #{@counter}
+        Death toll: #{@counter.count}
       %form{:action => "/death", :method => "post"}
         %input{:type => "submit", :value => "I got bit!", :class => "submit"}
