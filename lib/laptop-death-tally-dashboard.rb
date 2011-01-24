@@ -78,7 +78,8 @@ __END__
         img#logo      { display: block;
                         margin: 0 auto 36px; }
         div#footer    { margin-top: 16px;
-                        font-size: 10px;  }
+                        font-size: 10px;
+                        text-align: center;  }
         a             { text-decoration: none; }
 
   %body
